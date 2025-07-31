@@ -1,0 +1,9 @@
+{
+  "UserProfileIcon": "//span[@class='header-icon-link user-profile-icon']",
+  "SignUpLink": "//a[@class='signup-link authentication_popup']",
+  "EmailAddressTxtBox":"//div/input[contains(@class,'email')][@id='spree_user_email']",
+  "PasswordTxtBox": "//div/input[@id='spree_user_password'][contains(@class,'textfield')]",
+  "SignUpButton": "//input[@class='button primary signup']",
+  "ProfileLink": "//ul/li/a[@id='header-icon-profile']",
+  "RegisteredEmailAddress": "//table[@id='info']/tbody/tr/td[@class='profile-value']/label[contains(text(),'Email Address')]"
+}
