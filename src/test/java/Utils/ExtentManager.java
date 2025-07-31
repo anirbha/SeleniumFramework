@@ -7,18 +7,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExtentManager {
-    private static ExtentReports extent;
+    private static ExtentReports extentReports;
 
     public static ExtentReports getInstance() {
-        if (extent == null) {
+        if (extentReports == null) {
             // Create a dynamic report file name with timestamp
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String reportPath = System.getProperty("user.dir") + "/TestOutput/ExtentReport" + timeStamp + ".html";
+            String reportPath = System.getProperty("user.dir") + "/TestOutput/ExtentReport/" + timeStamp + ".html";
 
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
-            extent = new ExtentReports();
-            extent.attachReporter(htmlReporter);
+            extentReports = new ExtentReports();
+            extentReports.attachReporter(htmlReporter);
+
         }
-        return extent;
+        return extentReports;
     }
+
+
 }

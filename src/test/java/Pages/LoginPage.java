@@ -29,12 +29,24 @@ public class LoginPage extends BaseTest {
     public void clickOnTheProfileIcon() throws IOException, ParseException {
 
         TestUtils.ClickOnTheElement(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("UserProfileIcon"));
-
+        TestUtils.takeScreenshot(driver);
 
     }
 
+    public void clickOnTheSignUpLink() throws IOException, ParseException, InterruptedException {
+        TestUtils.ClickOnTheElement(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("SignUpLink"));
+        Thread.sleep(10000);
+        TestUtils.takeScreenshot(driver);
+    }
 
+    public void enterEmailAddForRegister() throws IOException, ParseException {
+        String emailaddress="anirban.com";
+        TestUtils.EnterValue(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("SignUpLink"),emailaddress);
+    }
 
+    public void enterPwdForRegister() {
+    }
 
-
+    public void clickOnTheSubmitButton() {
+    }
 }
