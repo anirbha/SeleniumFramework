@@ -1,0 +1,18 @@
+{
+  "UserProfileIcon": "//span[@class='header-icon-link user-profile-icon']",
+  "SignUpLink": "//a[@class='signup-link authentication_popup']",
+  "EmailAddressTxtBox":"//form/input[@id='spree_user_email']",
+  "PasswordTxtBox": "//input[@id='spree_user_password'][@tabindex='2']",
+  "SignUpButton": "//input[@class='button primary signup']",
+  "ProfileLink": "//ul/li/a[@id='header-icon-profile']",
+  "MyAccountHeader": "//h1[@class='account_header']",
+  "RegisteredEmailAddress": "//table[@id='info']/tbody/tr[2]/td[@class='profile-value']",
+  "EditButton": "//a[@id='edit']",
+  "NameTextBox": "//form/table/tbody//td/input[@id='user_name']",
+  "MobileNumberTextBox": "//form/table/tbody//td/input[@id='user_mobile']",
+  "UpdateButton": "//form//input[@value='Update']",
+  "RegisteredName": "//table[@id='info']/tbody/tr/td[@class='profile-value']",
+  "RegisteredPhoneNumber": "//table[@id='info']/tbody/tr[3]/td[@class='profile-value']",
+  "LoginLink": "//a[@class='login-link authentication_popup']",
+  "LoginButton":"//input[@id='ul_site_login']"
+}
