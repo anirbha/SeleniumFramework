@@ -15,10 +15,7 @@ public class LoginPage extends BaseTest {
 
 
 
-//    public void driverReference()
-//    {
-//        driver=getDriver();
-//    }
+
 
     public void clickOnTheLoginLink() throws IOException, ParseException {
 //        driverReference();

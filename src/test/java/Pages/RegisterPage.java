@@ -28,9 +28,7 @@ public class RegisterPage extends BaseTest {
 
         url=TestUtils.getProperty("URL");
         TestUtils.LaunchUrl(driver,url);
-//        String screnshtpath=TestUtils.takeScreenshot(driver);
-//        extentTest.log(Status.INFO, (Markup) extentTest.addScreenCaptureFromPath(screnshtpath));
-//        extentTest.log(Status.INFO, (Markup) extentTest.addScreenCaptureFromPath(screnshtpath));
+
         logger.info("Launch the url");
 
 

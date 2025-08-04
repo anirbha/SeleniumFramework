@@ -35,15 +35,7 @@ public class RegistrationSteps
 
     }
 
-//    @Then("I click on the SignUp {} under Profile button to register")
-//    public void iClickOnTheLinkUnderProfileButtonToRegister(String linkname) throws IOException, ParseException, InterruptedException {
-//        registerPage.clickOnTheProfileIcon();
-//        registerPage.clickOnTheSignUpLink();
-//        registerPage.waitFrPresenceOfEmail();
-//        extentTest.info("Clicked on the Profile Icon");
-//
-//
-//    }
+
 
     @Then("I click on the {string} under Profile button to register")
     public void iClickOnTheUnderProfileButtonToRegister(String linkname) throws IOException, ParseException {
