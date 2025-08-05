@@ -14,5 +14,7 @@
   "RegisteredName": "//table[@id='info']/tbody/tr/td[@class='profile-value']",
   "RegisteredPhoneNumber": "//table[@id='info']/tbody/tr[3]/td[@class='profile-value']",
   "LoginLink": "//a[@class='login-link authentication_popup']",
-  "LoginButton":"//input[@id='ul_site_login']"
+  "LoginButton":"//input[@id='ul_site_login']",
+  "EmailAddressTxtBoxLogin": "//form[@name='login_form']//input[@id='spree_user_email']",
+  "PasswordTxtBoxLogin": "//form[@name='login_form']//div/input[@id='spree_user_password']"
 }

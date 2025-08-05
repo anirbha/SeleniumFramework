@@ -1,0 +1,29 @@
+package Base;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DriverManager {
+    private static WebDriver driver;
+//    public static void initiateDriver()
+//    {
+//
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//
+//
+//    }
+
+    public static WebDriver getDriver()
+    {    driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
+}

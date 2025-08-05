@@ -67,19 +67,15 @@ public class TestUtils {
 
         File screenshotfile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
-//        String destination = System.getProperty("user.dir")+"/TestOutput/Screenshots/"+Screenshotfilename+ ".png";
-
         String relativePath = "TestOutput/Screenshots/" + Screenshotfilename + ".png";
         String destination = System.getProperty("user.dir") + "/" + relativePath;
-
-//        FileUtils.copyFile(screenshotfile,new File(dest +Screenshotfilename+ ".png"));
 
         try {
             Files.copy(screenshotfile.toPath(), new File(destination).toPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return relativePath;
+        return destination;
     }
     public static void assertAndLogEquals(WebDriver driver,ExtentTest extentTest,Object actual, Object expected, String message) throws IOException {
         String screenshotPath = takeScreenshot(driver);

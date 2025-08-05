@@ -1,11 +1,11 @@
 Feature: Register a User Account functionality
 
   Scenario Outline: Successful Registration with valid credentials
-    Given as a new user I launch the website
-    Then I click on the "<Link>" under Profile button to register
-    Then I enter my email address in the email address testbox
-    Then I enter my password in the password testbox
-    Then I click on the "<button>" button
+    Given as a new user I launch the website"<Testcase>"
+    Then I click on the "<Link>" under Profile button
+    Then I enter my email address in the email address textbox
+    Then I enter my password in the password textbox
+    Then I click on the "<Button>" button
     When I click on the Profile button to validate the emailid
     Then the email id should be same with the given email id
     Then I click on the Edit button
@@ -15,7 +15,7 @@ Feature: Register a User Account functionality
     Then the name and mobile number should be same with the given details
 
     Examples:
-      |Link|button|
-      |SignUp|SignUp|
+      | Testcase     | Link   |  | Button |
+      | RegisterUser | SignUp |  | SignUp |
 
 
