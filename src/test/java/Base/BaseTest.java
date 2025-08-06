@@ -21,8 +21,8 @@ public class BaseTest {
 
 
 
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
+//            driver = new ChromeDriver();
+//            driver.manage().window().maximize();
 //            return driver;
 
         }

@@ -5,14 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverManager {
     private static WebDriver driver;
-//    public static void initiateDriver()
-//    {
-//
-//        driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//
-//
-//    }
 
     public static WebDriver getDriver()
     {    driver = new ChromeDriver();

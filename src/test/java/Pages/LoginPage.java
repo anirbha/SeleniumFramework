@@ -7,11 +7,16 @@ import Utils.Log;
 import Utils.TestUtils;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Objects;
 
 public class LoginPage extends BaseTest {
@@ -197,5 +202,75 @@ public class LoginPage extends BaseTest {
         DriverManager.quitDriver();
         ExtentManager.getInstance().flush();
 
+    }
+
+    public void clickOnTheLogOutButton() throws IOException, ParseException {
+        TestUtils.ClickOnTheElement(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("UserProfileIcon"));
+        TestUtils.ClickOnElements(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("LogOutLink"));
+        ExtentManager.getTest().info("Clicked on the Logout button");
+        Log.info("Clicked on the Log Out button");
+
+    }
+
+    public void validateLogOut() throws IOException, ParseException {
+        String path=TestUtils.takeScreenshot(driver);
+        try
+        {   TestUtils.ClickOnTheElement(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("UserProfileIcon"));
+            Assert.assertTrue(TestUtils.CheckPresenceOfElement(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("LoginLink")));
+            ExtentManager.getTest().pass("LogOut Successfully", MediaEntityBuilder.createScreenCaptureFromPath(path).build()
+            );
+            Log.info("Log Out Successfully from the application");
+        } catch (Exception e) {
+            ExtentManager.getTest().fail("Log Out is not successful",MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+            Log.error("Log Out failed");
+        }
+
+        DriverManager.quitDriver();
+        ExtentManager.getInstance().flush();
+    }
+
+    public void scrolldowntillPhoneIcon() throws IOException, ParseException {
+
+        TestUtils.ScrollUsingJS(driver,(String) Objects.requireNonNull(TestUtils.ReadJsonData()).get("PhoneIcon"));
+
+        String path=TestUtils.takeScreenshot(driver);
+        try
+        {
+            ExtentManager.getTest().info("Scrolled down to the Phone Icon"
+            );
+            Log.info("Scrolled down to the Phone Icon");
+        } catch (Exception e) {
+            ExtentManager.getTest().fail("Didn't Scrolled down to the Phone Icon");
+            Log.error("Didn't Scrolled down to the Phone Icon");
+        }
+
+
+    }
+
+    public void clickOnThePhoneIcon() throws IOException, ParseException {
+        TestUtils.ClickOnTheElement(driver,(String)Objects.requireNonNull(TestUtils.ReadJsonData()).get("PhoneIcon"));
+        String path=TestUtils.takeScreenshot(driver);
+        try
+        {
+            ExtentManager.getTest().info("Clicked to the Phone Icon", MediaEntityBuilder.createScreenCaptureFromPath(path).build()
+            );
+            Log.info("Clicked on the Phone Icon");
+        } catch (Exception e) {
+            ExtentManager.getTest().fail("Didn't click the phone icon",MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+            Log.error("Didn't click the phone icon");
+        }
+
+    }
+
+    public void alertPopUpAppears() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        String alerttxt= alert.getText();
+
+        ExtentManager.getTest().info("The Alert text is" + alerttxt);
+        Log.info("The Alert text is" + alerttxt);
+
+        DriverManager.quitDriver();
+        ExtentManager.getInstance().flush();
     }
 }

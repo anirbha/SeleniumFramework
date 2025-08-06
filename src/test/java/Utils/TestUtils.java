@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -25,6 +26,7 @@ import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -119,8 +121,8 @@ public class TestUtils {
     public static void waitExplicitlyForWebElement(WebDriver driver,String locator)
     {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-        element.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+
     }
     public static void waitImplicitly(WebDriver driver, int time) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(time));
@@ -129,7 +131,87 @@ public class TestUtils {
     {
         return driver.findElement(By.xpath(locator)).getText();
     }
+    public static void ClickOnElements(WebDriver driver,String locator)
+    {
+        List<WebElement> elementslist=driver.findElements(By.xpath(locator));
+
+        for (WebElement element : elementslist) {
+            element.click();
+        }
+    }
+
+    public static int SizeOfList(WebDriver driver,String locator)
+    {
+        int size=driver.findElements(By.xpath(locator)).size();
+        return size;
+    }
+
+    public static List<WebElement> ReturnList(WebDriver driver,String locator)
+    {
+        List<WebElement> elementslist=driver.findElements(By.xpath(locator));
+        return elementslist;
+    }
+
+    public static void PressEnterKey(WebDriver driver,String locator)
+    {
+        driver.findElement(By.xpath(locator)).sendKeys(Keys.ENTER);
+    }
+    public static void ScrollUsingJS(WebDriver driver, String locator)
+    {
+        WebElement element = driver.findElement(By.xpath(locator));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(false);", element);
+//        element.click();
+    }
+    public static void mouseHover(WebDriver driver, String locator) {
+         WebElement element= driver.findElement(By.xpath(locator));
+            Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+//
+    public static void MouseHoverAndClick(WebDriver driver,int iteration, String hoverelem, String clickElem)
+    {
+        List<WebElement> hoverElements = driver.findElements(By.xpath(hoverelem));
+
+        // Locate the element to click
+         List<WebElement> clickElements = driver.findElements(By.xpath(clickElem));
+
+        // Create Actions instance
+         Actions actions = new Actions(driver);
+
+        // Perform mouse hover and click
+        for(int i=0;i<iteration;i++)
+        {
+            actions.moveToElement(hoverElements.get(i)).click(clickElements.get(i)).build().perform();
+        }
+
+    }
+
+    public static boolean CheckPresenceOfElement(WebDriver driver,String locator) {
+            boolean flag=driver.findElement(By.xpath(locator)).isDisplayed();
+            return flag;
+    }
+    public static String alertHandle(WebDriver driver) {
+
+        Alert alert = driver.switchTo().alert();
+
+        String alertText = alert.getText();
+
+        alert.dismiss();
+
+        return alertText;
+    }
+    public static void waitExplicitlyForElemTobeClickable(WebDriver driver,String locator)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+
+    }
 }
+
+
+
+
 
 
 
