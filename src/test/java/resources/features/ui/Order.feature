@@ -7,7 +7,7 @@ Feature: Order item functionality till payment page
     And I enter my password in the password textbox for login
     When I click on the Login button
 
-  @Order    @Priority
+  @Order    @Testcase4
   Scenario: Order item functionality till payment page
     Then I searched for the ‘Crockery units’
     When I select all the filters

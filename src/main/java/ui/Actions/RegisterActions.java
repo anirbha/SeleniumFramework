@@ -1,11 +1,11 @@
-package Actions;
+package ui.Actions;
 
-import Utils.ExtentManager;
-import Utils.Log;
-import Utils.TestUtils;
+
+
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.openqa.selenium.WebDriver;
-import pages.RegisterPage;
+import ui.Utils.*;
+import ui.pages.RegisterPage;
 import java.io.IOException;
 
 public class RegisterActions {
@@ -18,6 +18,7 @@ public class RegisterActions {
         this.driver = driver;
     }
 
+    //This method will click the Sign up link present under profile icon
     public void clickOnTheSignUpLink() {
 
         driver.findElement(registerPage.SignUpLink).click();
@@ -33,23 +34,41 @@ public class RegisterActions {
         Log.info("Clicked on the Sign up Link");
     }
 
-    public void enterEmailAddForRegister() throws IOException {
+    // This method will fetch email id from excel and enter it in the email id textbox
+    public void enterEmailAddForRegister()  {
 
-        TestUtils.waitExplicitlyForWebElementVisible(driver,registerPage.EmailAddressTxtBoxRegister);
+        WaitUtils.waitExplicitlyForWebElementVisible(driver,registerPage.EmailAddressTxtBoxRegister);
 
-        String emailaddress= TestUtils.ReadExcelData(0,1,1);
+        try{
+            String emailaddress= ExcelUtils.readExcelData(0,1,1);
 
-        driver.findElement(registerPage.EmailAddressTxtBoxRegister).sendKeys(emailaddress);
+            driver.findElement(registerPage.EmailAddressTxtBoxRegister).sendKeys(emailaddress);
 
-        ExtentManager.getTest().info("Email id entered in the field");
+            ExtentManager.getTest().info("Email id entered in the field");
 
-        Log.info("Email id entered in the email id field");
+            Log.info("Email id entered in the email id field");
+         } catch (Exception e) {
+
+            ExtentManager.getTest().fail("Email id not entered in the field");
+
+            Log.info("Email id not entered in the email id field");
+
+        }
+
     }
-    public void enterPwdForRegister() throws IOException {
 
-        String password= TestUtils.ReadExcelData(0,1,2);
+    //This method will fetch password from excel and enter it in the password textbox
+    public void enterPwdForRegister()  {
 
-        driver.findElement(registerPage.PasswordTxtBoxRegister).sendKeys(password);
+        try{
+            String password= ExcelUtils.readExcelData(0,1,2);
+
+            driver.findElement(registerPage.PasswordTxtBoxRegister).sendKeys(password);
+
+        } catch (IOException e) {
+
+            ExtentManager.getTest().fail("Exception occurred while getting value from excel"+e);
+        }
 
         String path=TestUtils.takeScreenshot(driver);
 
@@ -57,12 +76,12 @@ public class RegisterActions {
 
         Log.info("Password entered in the email id field");
     }
-
+    //This method will click on the Sign up button
     public void clickOnTheSignUpButton() {
 
         driver.findElement(registerPage.SignUpButton).click();
 
-        TestUtils.waitImplicitly(driver, 3);
+        WaitUtils.waitImplicitly(driver, 3);
 
         String path = TestUtils.takeScreenshot(driver);
 
@@ -77,10 +96,11 @@ public class RegisterActions {
             Log.error("Sign Up not successful");
         }
     }
+    //This method will Click on the Edit button
     public void clickOnTheEditBtn() {
         driver.findElement(registerPage.EditButton).click();
 
-        TestUtils.waitImplicitly(driver, 3);
+        WaitUtils.waitImplicitly(driver, 3);
 
         String path = TestUtils.takeScreenshot(driver);
         try {
@@ -93,8 +113,9 @@ public class RegisterActions {
             Log.error("Email id is matching with the expected");
         }
     }
+    //This method will enter Name
     public void enterNameForEdit() throws IOException {
-        String name=TestUtils.ReadExcelData(0,1,3);
+        String name=ExcelUtils.readExcelData(0,1,3);
 
         driver.findElement(registerPage.NameTextBox).sendKeys(name);
 
@@ -109,9 +130,9 @@ public class RegisterActions {
             Log.error("Couldn't enter name for editing");
         }
     }
-
+    //This method will enter Phone number
     public void enterPhNumberForEdit() throws IOException {
-        String phonenumber=TestUtils.ReadExcelData(0,1,4);
+        String phonenumber=ExcelUtils.readExcelData(0,1,4);
 
         driver.findElement(registerPage.MobileNumberTextBox).sendKeys(phonenumber);
 
@@ -126,7 +147,7 @@ public class RegisterActions {
             Log.error("Couldn't enter phone number for editing");
         }
     }
-
+    //This method will click on the update button
     public void clickOnTheUpdateBtn() {
         driver.findElement(registerPage.UpdateButton).click();
         TestUtils.takeScreenshot(driver);

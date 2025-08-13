@@ -1,21 +1,18 @@
-package Actions;
+package ui.Actions;
 
-import Base.DriverManager;
-import Utils.ExtentManager;
-import Utils.Log;
-import Utils.TestUtils;
+
+
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pages.LoginPage;
+import ui.Utils.*;
+import ui.pages.LoginPage;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.Duration;
-import java.util.Objects;
 
 public class LoginActions {
 
@@ -27,10 +24,10 @@ public class LoginActions {
         this.driver = driver;
 
     }
-
+    // This method will launch the URL
     public void launchUrl() {
         url = TestUtils.getProperty("URL");
-        TestUtils.LaunchUrl(driver, url);
+        TestUtils.launchUrl(driver, url);
         String path = TestUtils.takeScreenshot(driver);
         try {
             ExtentManager.getTest().info(
@@ -44,7 +41,7 @@ public class LoginActions {
 
     }
 
-
+    //This method will click on the Profile Icon
     public void clickOnTheUserProfileIcon() {
 
         String path = TestUtils.takeScreenshot(driver);
@@ -62,6 +59,7 @@ public class LoginActions {
         Log.info("Clicked on the Profile Icon");
     }
 
+    //This method will click on the Login link
     public void clickOnTheLoginLink() {
 
         driver.findElement(loginPage.LoginLink).click();
@@ -78,10 +76,10 @@ public class LoginActions {
         Log.info("Clicked on the Login Link");
 
     }
-
+    //This method will wait for the presence of email field
     public void waitFrPresenceOfEmail() {
 
-        TestUtils.waitExplicitlyForWebElementVisible(driver, loginPage.EmailAddressTxtBoxLogin);
+        WaitUtils.waitExplicitlyForWebElementVisible(driver, loginPage.EmailAddressTxtBoxLogin);
         String path = TestUtils.takeScreenshot(driver);
         try {
             ExtentManager.getTest().info(
@@ -94,8 +92,9 @@ public class LoginActions {
         Log.info("Login pop up appeared");
     }
 
+    //This method will enter email id for login
     public void enterEmailAddForLogin() throws IOException{
-        String emailaddress = TestUtils.ReadExcelData(0, 1, 1);
+        String emailaddress = ExcelUtils.readExcelData(0, 1, 1);
         driver.findElement(loginPage.EmailAddressTxtBoxLogin).sendKeys(emailaddress);
         TestUtils.takeScreenshot(driver);
         ExtentManager.getTest().info("Email id entered in the field");
@@ -103,17 +102,19 @@ public class LoginActions {
 
     }
 
+    //This method will enter password for login
     public void enterPwdForLogin() throws IOException {
-        String password = TestUtils.ReadExcelData(0, 1, 2);
+        String password = ExcelUtils.readExcelData(0, 1, 2);
         driver.findElement(loginPage.PasswordTxtBoxLogin).sendKeys(password);
         TestUtils.takeScreenshot(driver);
         ExtentManager.getTest().info("Password entered in the field");
         Log.info("Password entered in the email id field");
     }
 
+    //This method will click on the Login button
     public void clickOnTheLoginButton() throws IOException {
         driver.findElement(loginPage.LoginButton).click();
-        TestUtils.waitImplicitly(driver, 3);
+        WaitUtils.waitImplicitly(driver, 3);
         String path = TestUtils.takeScreenshot(driver);
         try {
             ExtentManager.getTest().info(
@@ -127,8 +128,8 @@ public class LoginActions {
         }
     }
 
-
-    public void clickOnTheProfileLink() throws IOException {
+    //This method will click on the Profile link
+    public void clickOnTheProfileLink() {
         driver.findElement(loginPage.UserProfileIcon).click();
         driver.findElement(loginPage.ProfileLink).click();
         String expectedHeading = TestUtils.getProperty("ExpectedHeading");
@@ -145,9 +146,9 @@ public class LoginActions {
         }
 
     }
-
+    //This method will validate the email id of the profile
     public void validateEmailId() throws IOException {
-        String expectedEmailAdd = TestUtils.ReadExcelData(0, 1, 1);
+        String expectedEmailAdd = ExcelUtils.readExcelData(0, 1, 1);
         String actualEmailAdd = TestUtils.getTextFromElement(driver,loginPage.RegisteredEmailAddress);
         String path = TestUtils.takeScreenshot(driver);
 
@@ -161,9 +162,9 @@ public class LoginActions {
             Log.error("Email id is matching with the expected");
         }
     }
-
+    //This method will validate the name of the profile
     public void validateName() throws IOException {
-        String expected_name = TestUtils.ReadExcelData(0, 1, 3);
+        String expected_name = ExcelUtils.readExcelData(0, 1, 3);
         String actual_name = TestUtils.getTextFromElement(driver, loginPage.RegisteredName);
         String path = TestUtils.takeScreenshot(driver);
 
@@ -177,9 +178,9 @@ public class LoginActions {
             Log.error("Name is matching with the expected");
         }
     }
-
+    //This email id will validate the phone number of the profile
     public void validatePhoneNumber() throws IOException{
-        String expected_name = TestUtils.ReadExcelData(0, 1, 4);
+        String expected_name = ExcelUtils.readExcelData(0, 1, 4);
         String actual_name = TestUtils.getTextFromElement(driver, loginPage.RegisteredPhoneNumber);
         String path = TestUtils.takeScreenshot(driver);
 
@@ -193,6 +194,9 @@ public class LoginActions {
             Log.error("Phone number is matching with the expected");
         }
     }
+
+    //----------------------------------Testcase8--LogOut Steps----------------------------------------------//
+    //This method will click on the Logout button
     public void clickOnTheLogOutButton() throws IOException{
             driver.findElement(loginPage.UserProfileIcon).click();
             driver.findElement(loginPage.LogOutLink).click();
@@ -200,11 +204,13 @@ public class LoginActions {
             ExtentManager.getTest().info("Clicked on the Logout button");
             Log.info("Clicked on the Log Out button");
     }
+
+    //This method will validate the logout functionality
     public void validateLogOut() throws IOException {
         String path = TestUtils.takeScreenshot(driver);
         try {
             driver.findElement(loginPage.UserProfileIcon).click();
-            Assert.assertTrue(TestUtils.CheckPresenceOfElement(driver, loginPage.LoginLink));
+            Assert.assertTrue(TestUtils.checkPresenceOfElement(driver, loginPage.LoginLink));
             ExtentManager.getTest().pass("LogOut Successfully", MediaEntityBuilder.createScreenCaptureFromPath(path).build()
             );
             Log.info("Log Out Successfully from the application");
@@ -214,9 +220,12 @@ public class LoginActions {
         }
     }
 
+    //--------------------------Testcase7---------Help Icon--------------------------------------------------------//
+
+    //This method will scroll down to the last of the page to the phone icon
     public void scrolldowntillPhoneIcon() throws IOException {
 
-        TestUtils.ScrollUsingJS(driver,loginPage.PhoneIcon);
+        TestUtils.scrollUsingJS(driver,loginPage.PhoneIcon);
 
         String path=TestUtils.takeScreenshot(driver);
         try
@@ -232,6 +241,7 @@ public class LoginActions {
 
     }
 
+    //This method will click on the Phone icon
     public void clickOnThePhoneIcon() throws IOException {
 
         driver.findElement(loginPage.PhoneIcon).click();
@@ -247,6 +257,7 @@ public class LoginActions {
         }
 
     }
+
 
     public void alertPopUpAppears() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

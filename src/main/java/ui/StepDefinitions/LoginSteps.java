@@ -1,8 +1,8 @@
-package StepDefinitions;
+package ui.StepDefinitions;
 
-import Actions.LoginActions;
-import Base.DriverManager;
-import Utils.ExtentManager;
+import ui.Actions.LoginActions;
+import ui.Base.DriverManager;
+import ui.Utils.ExtentManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

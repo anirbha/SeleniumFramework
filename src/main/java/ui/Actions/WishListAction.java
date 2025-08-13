@@ -1,15 +1,14 @@
-package Actions;
+package ui.Actions;
 
-import Utils.ExtentManager;
-import Utils.Log;
-import Utils.TestUtils;
+
+
 import com.aventstack.extentreports.MediaEntityBuilder;
-import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import pages.WishListPage;
-import java.io.IOException;
+import ui.Utils.*;
+import ui.pages.WishListPage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +27,22 @@ public class WishListAction {
         this.driver = driver;
     }
 
-    public void enterSearchItem() throws IOException, ParseException {
+    //This method is going to search for an item in the searchbox
+    public void enterSearchItem()  {
 
-        searchitem= TestUtils.getProperty("SearchItem");
+        searchitem= TestUtils.getProperty("WishlistSearchItem");
 
         driver.findElement(wishListPage.SearchTextBox).sendKeys(searchitem);
 
-        TestUtils.PressEnterKey(driver,wishListPage.SearchTextBox);
+        TestUtils.pressEnterKey(driver,wishListPage.SearchTextBox);
 
         ExtentManager.getTest().info("Entered "+ searchitem + " in the searchbox");
 
         Log.info("Entered"+ searchitem + "in the searchbox");
     }
 
-    public void verifyTheSearchHeader() throws IOException, ParseException {
+    //This item is going to verify the search header
+    public void verifyTheSearchHeader()  {
         String actualSearchTxt=TestUtils.getTextFromElement(driver,wishListPage.HeaderTextSearch).replace("'", "");
         String path=TestUtils.takeScreenshot(driver);
         try
@@ -56,26 +57,29 @@ public class WishListAction {
         }
     }
 
-    public void clickOnAllFilters() throws IOException, ParseException, InterruptedException {
+    //This method will click on all the checkboxes of category filter
+    public void clickOnAllFilters()  {
         driver.findElement(wishListPage.CatagoryFilter).click();
 
-        TestUtils.ClickOnElements(driver,wishListPage.FilterCheckboxes);
-        Thread.sleep(3000);
-        TestUtils.waitImplicitly(driver,10);
+        TestUtils.clickOnElements(driver,wishListPage.FilterCheckboxes);
+
+        WaitUtils.waitExplicitlyForElemTobeInvisible(driver,wishListPage.PrimaryCatagoryTxtInFilter);
+
+        WaitUtils.waitImplicitly(driver,10);
 
         Log.info("Checked all filters");
 
-
-
     }
 
+    //This method will add wishlist items
     public void addWishlistItems() {
-        TestUtils.mouseHover(driver,wishListPage.ExcludeOutOfStockChkbox);
-        TestUtils.MouseHoverAndClick(driver,3,wishListPage.ImageMousehover,wishListPage.WishlistsCheckbox);
+        MouseHover.mouseHover(driver,wishListPage.ExcludeOutOfStockChkbox);
+        MouseHover.mouseHoverAndClick(driver,Integer.parseInt(TestUtils.getProperty("NoOfWishlistedItems")),wishListPage.ImageMousehover,wishListPage.WishlistsCheckbox);
     }
 
+    //This method will retrieve the wishlisted items
     public void retriveWishListedItems(){
-        wishlisteditems=TestUtils.ReturnList(driver,wishListPage.WishListedItems);
+        wishlisteditems=TestUtils.returnList(driver,wishListPage.WishListedItems);
         for (int wishlisteditem=0; wishlisteditem<wishlisteditems.size();wishlisteditem++)
         {
             wishlistedItemsName.add(wishlisteditems.get(wishlisteditem).getText());
@@ -84,12 +88,13 @@ public class WishListAction {
 
     }
 
+    //This method will navigate to the Wishlist page
     public void navigateToWishListPage() {
 
-        TestUtils.ScrollUsingJS(driver,wishListPage.WishListIcon);
+        TestUtils.scrollUsingJS(driver,wishListPage.WishListIcon);
 
         driver.findElement(wishListPage.WishListIcon).click();
-        TestUtils.waitImplicitly(driver,3);
+        WaitUtils.waitImplicitly(driver,3);
 
         String path=TestUtils.takeScreenshot(driver);
         String expectedHeading=TestUtils.getProperty("WishListHeading");
@@ -106,9 +111,10 @@ public class WishListAction {
         }
     }
 
+    //This method will validate the wishlisted items
     public void validationOfWishListedItems() {
 
-        wishlists=TestUtils.ReturnList(driver,wishListPage.WishLists);
+        wishlists=TestUtils.returnList(driver,wishListPage.WishLists);
         int wishlistedutemssize = wishlisteditems.size();
         for (int wishlisteditemno = 0; wishlisteditemno < wishlistedutemssize; wishlisteditemno++) {
             String actual = wishlists.get(wishlisteditemno).getText();

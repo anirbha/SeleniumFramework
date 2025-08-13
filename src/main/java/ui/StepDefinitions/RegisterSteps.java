@@ -1,8 +1,8 @@
-package StepDefinitions;
+package ui.StepDefinitions;
 
-import Actions.LoginActions;
-import Actions.RegisterActions;
-import Base.DriverManager;
+import ui.Actions.LoginActions;
+import ui.Actions.RegisterActions;
+import ui.Base.DriverManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.json.simple.parser.ParseException;
@@ -24,33 +24,33 @@ public class RegisterSteps {
     }
 
     @And("I click on the SignUp Link under Profile button")
-    public void iClickOnTheSignUpLinkUnderProfileButton() throws IOException, ParseException {
+    public void iClickOnTheSignUpLinkUnderProfileButton()  {
         loginActions.clickOnTheUserProfileIcon();
         registerActions.clickOnTheSignUpLink();
     }
 
     @And("I enter my email address in the email address textbox")
-    public void iEnterMyEmailAddressInTheEmailAddressTextbox() throws IOException, ParseException {
+    public void iEnterMyEmailAddressInTheEmailAddressTextbox() {
         registerActions.enterEmailAddForRegister();
     }
 
     @And("I enter my password in the password textbox")
-    public void iEnterMyPasswordInThePasswordTextbox() throws IOException, ParseException {
+    public void iEnterMyPasswordInThePasswordTextbox()  {
         registerActions.enterPwdForRegister();
     }
 
     @And("I click on the SignUp button")
-    public void iClickOnTheSignUpButton() throws IOException, ParseException {
+    public void iClickOnTheSignUpButton()  {
         registerActions.clickOnTheSignUpButton();
     }
 
     @When("I click on the Edit button")
-    public void iClickOnTheEditButton() throws IOException, ParseException {
+    public void iClickOnTheEditButton()  {
         registerActions.clickOnTheEditBtn();
     }
 
     @And("I enter my name in the name textbox")
-    public void iEnterMyNameInTheNameTextbox() throws IOException, ParseException {
+    public void iEnterMyNameInTheNameTextbox() throws IOException {
         registerActions.enterNameForEdit();
     }
 

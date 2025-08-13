@@ -1,23 +1,10 @@
-package pages;
+package ui.pages;
 
-import Base.DriverManager;
-import Utils.ExtentManager;
-import Utils.Log;
-import Utils.TestUtils;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import org.json.simple.parser.ParseException;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class OrderPage {
+
 public By Dinning= By.xpath("//span[@class='topnav_itemname'][contains(text(),'Dining')]");
 public By CrockeryItems=By.xpath("//span[contains(text(),'Crockery Units')]");
 public By CrockeryHeader=By.xpath("//h1[contains(text(),'Crockery Units')]");

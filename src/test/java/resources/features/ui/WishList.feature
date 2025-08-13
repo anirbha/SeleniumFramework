@@ -7,7 +7,7 @@ Feature: Validation of wishlist functionality
     And I enter my password in the password textbox for login
     When I click on the Login button
 
-    @Wishlist
+    @Wishlist     @Testcase3
   Scenario: Adding items to wishlist and validation
     When I enter the searchitem in searchbox
     Then the searchitem should be appeared in the search results

@@ -1,4 +1,4 @@
-package Utils;
+package ui.Utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
