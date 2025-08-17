@@ -74,6 +74,8 @@ public class OrderActions {
 
     //This method will select the checkboxes of different brands under Brand Filter
     public void selectBrandFilter() {
+      WaitUtils.waitExplicitlyForElemTobeInvisible(driver,orderPage.PriceFilterRadioBtn);
+
       WaitUtils.waitExplicitlyForElemTobeClickable(driver,orderPage.BrandFilter);
 
       MouseHover.mouseHoverAndClick(driver,orderPage.BrandFilter,orderPage.BrandFilterCheckboxes);
@@ -240,7 +242,9 @@ public class OrderActions {
     //This method will navigate to Cart first and then click on the CheckOut button
     public void checkOutFromTheCart() {
         TestUtils.scrollToTop(driver);
+        WaitUtils.waitExplicitlyForElemTobeClickable(driver,orderPage.CartButton);
         driver.findElement(orderPage.CartButton).click();
+        WaitUtils.waitExplicitlyForElemTobeClickable(driver,orderPage.CheckOutButton);
         driver.findElement(orderPage.CheckOutButton).click();
 
         String path=TestUtils.takeScreenshot(driver);

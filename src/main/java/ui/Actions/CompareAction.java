@@ -250,7 +250,7 @@ public class CompareAction {
     //This method will search Recliner Chairs in the search box
     public void enterReclinerinTheSearchbox() {
 
-        firstSearchItemToCompare = TestUtils.getProperty("SearchItem");
+        firstSearchItemToCompare = TestUtils.getProperty("WishlistSearchItem");
 
         driver.findElement(comparePage.SearchTextBox).sendKeys(firstSearchItemToCompare);
 

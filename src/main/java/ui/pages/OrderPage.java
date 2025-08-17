@@ -10,7 +10,7 @@ public By CrockeryItems=By.xpath("//span[contains(text(),'Crockery Units')]");
 public By CrockeryHeader=By.xpath("//h1[contains(text(),'Crockery Units')]");
 public By PriceFilter=By.xpath("//div[contains(text(),'Price')]");
 public By PriceFilterRadioBtn=By.xpath("//div[contains(text(),'Price')]/following-sibling::div//ul/li[@class='row range-limits']//label");
-public By SpecificPrice=By.xpath("//li[contains(text(),'₹14,938 - ₹36,545')]");
+public By SpecificPrice=By.xpath("//label[@class='range']");
 public By BrandFilter=By.xpath("//div[contains(text(),'Brand')]");
 public By BrandFilterCheckboxes=By.xpath("//ul[@class='clearfix options'][@data-filter-name='brand_name']//li[not(contains(@class,'disabled'))]//input[@type='checkbox']");
 public By BrandFilterNames=By.xpath("//ul[@class='clearfix options'][@data-filter-name='brand_name']//li[not(contains(@class,'disabled'))]/label");

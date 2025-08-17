@@ -1,0 +1,4 @@
+{
+  "numberOfRequests": 50,
+  "maxAcceptableResponseTimeMs": 600
+}

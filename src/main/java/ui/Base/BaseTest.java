@@ -1,5 +1,5 @@
-package Base;
-import Utils.ExtentManager;
+package ui.Base;
+import ui.Utils.ExtentManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.WebDriver;
@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 
 public class BaseTest {
         protected WebDriver driver;
-
-
         private static ExtentReports extentReports=ExtentManager.getInstance();
         private static ThreadLocal<ExtentTest> extentTestThreadLocal=new ThreadLocal<>();
 
@@ -20,9 +18,7 @@ public class BaseTest {
 
 
 
-//            driver = new ChromeDriver();
-//            driver.manage().window().maximize();
-//            return driver;
+
 
         }
 

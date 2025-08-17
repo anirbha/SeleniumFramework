@@ -1,18 +1,20 @@
-package api.models;
+package api.Pojo;
 
-public class UserPOJO {
+public class CommentPojo {
 
     private int id;
+    private int postId;
     private String name;
     private String email;
+    private String body;
 
-    public UserPOJO() {}
+    public int getPostId()
+    { return postId; }
 
-    public UserPOJO(String name, String email) {
-        this.name = name;
-        this.email = email;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
-    // Getters and setters
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -21,4 +23,7 @@ public class UserPOJO {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getBody() { return body; }
+    public void setBody(String body) { this.body = body; }
 }
