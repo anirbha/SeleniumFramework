@@ -1,21 +1,24 @@
 package hooks;
 
-import Base.BaseTest;
+import ui.Base.DriverManager;
+import ui.Utils.ExtentManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 
-public class Hooks extends BaseTest {
+public class Hooks {
 
     @Before
-    public void setUp()
-    {
-        initiatedriver();
+    public void setUp(Scenario scenario) {
+
+        ExtentManager.createTest(scenario.getName());
     }
 
     @After
-    public void teardown()
-    {
-        quitdriver();
+    public void tearDown(Scenario scenario) {
+
+        DriverManager.quitDriver();
+        ExtentManager.getInstance().flush();
     }
 
 }

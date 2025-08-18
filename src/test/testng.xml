@@ -2,7 +2,7 @@
 <suite name="CucumberTestNGSuite"  parallel="tests" thread-count="2">
     <test name="CucumberTests">
         <classes>
-            <class name="runners.TestRunner"/>
+            <class name="ui.runners.UITestRunner"/>
         </classes>
     </test>
 </suite>
