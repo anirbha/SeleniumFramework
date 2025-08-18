@@ -40,13 +40,17 @@ public class MouseHover {
 
     public static void mouseHoverAndClick(WebDriver driver, int iteration, String hoverelem, String clickElemlocator) {
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+
+
         // Create Actions instance
         Actions actions = new Actions(driver);
 
         // Perform mouse hover and click elements
         for(int i=0;i<iteration;i++)
         {
-
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(hoverelem+"["+(i+1)+"]")));
             actions.moveToElement(driver.findElement(By.xpath(hoverelem+"["+(i+1)+"]"))).click(driver.findElement(By.xpath(clickElemlocator+"["+(i+1)+"]"))).build().perform();
 
         }

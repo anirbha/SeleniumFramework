@@ -2,6 +2,7 @@ package ui.Actions;
 
 
 import com.aventstack.extentreports.MediaEntityBuilder;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -302,7 +303,13 @@ public class CompareAction {
 
         WaitUtils.waitExplicitlyForElemTobeClickable(driver,comparePage.SearchTextBox);
 
+        driver.findElement(comparePage.SearchTextBox).click();
+
         driver.findElement(comparePage.SearchTextBox).clear();
+
+        driver.findElement(comparePage.SearchTextBox).sendKeys(Keys.CONTROL+"a");
+
+        driver.findElement(comparePage.SearchTextBox).sendKeys(Keys.DELETE);
 
         driver.findElement(comparePage.SearchTextBox).sendKeys(secondSearchItemToCompare);
 
