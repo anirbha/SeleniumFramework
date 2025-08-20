@@ -9,6 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -24,37 +25,37 @@ public class LoginSteps {
     }
 
     @Given("as a user I launch the website")
-    public void asAUserILaunchTheWebsite() throws IOException {
+    public void asAUserILaunchTheWebsite()  {
         loginActions.launchUrl();
     }
 
     @And("I click on the Login Link under Profile button")
-    public void iClickOnTheLoginLinkUnderProfileButton() throws IOException {
+    public void iClickOnTheLoginLinkUnderProfileButton()  {
         loginActions.clickOnTheUserProfileIcon();
         loginActions.clickOnTheLoginLink();
         loginActions.waitFrPresenceOfEmail();
     }
 
     @And("I enter my email address in the email address textbox for login")
-    public void iEnterMyEmailAddressInTheEmailAddressTextboxForLogin() throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public void iEnterMyEmailAddressInTheEmailAddressTextboxForLogin() throws IOException {
         loginActions.enterEmailAddForLogin();
         
     }
 
     @And("I enter my password in the password textbox for login")
-    public void iEnterMyPasswordInThePasswordTextboxForLogin() throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public void iEnterMyPasswordInThePasswordTextboxForLogin() throws IOException {
         loginActions.enterPwdForLogin();
         
     }
 
     @When("I click on the Login button")
-    public void iClickOnTheLoginButton() throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public void iClickOnTheLoginButton() throws IOException {
         loginActions.clickOnTheLoginButton();
         
     }
 
     @When("I click on the Profile button to validate the emailid")
-    public void iClickOnTheProfileButtonToValidateTheEmailid() throws IOException {
+    public void iClickOnTheProfileButtonToValidateTheEmailid()  {
         loginActions.clickOnTheProfileLink();
     }
 
@@ -67,19 +68,18 @@ public class LoginSteps {
     public void theNameAndMobileNumberShouldBeSameWithTheGivenDetails() throws IOException {
         loginActions.validateName();
         loginActions.validatePhoneNumber();
-        DriverManager.quitDriver();
-        ExtentManager.getInstance().flush();
+
     }
 
     @When("I click on the LogOut button")
-    public void iClickOnTheLogOutButton() throws IOException, org.json.simple.parser.ParseException {
+    public void iClickOnTheLogOutButton() throws IOException{
         loginActions.clickOnTheLogOutButton();
     }
 
     @Then("I validate the Logout functionality")
     public void iValidateTheLogoutFunctionality() throws IOException, org.json.simple.parser.ParseException {
         loginActions.validateLogOut();
-        DriverManager.quitDriver();
+
 
     }
 
@@ -94,8 +94,8 @@ public class LoginSteps {
     }
 
     @Then("I retrieve the text from the alert pop up and cancel it")
-    public void iRetrieveTheTextFromTheAlertPopUpAndCancelIt() {
+    public void iRetrieveTheTextFromTheAlertPopUpAndCancelIt() throws InterruptedException, AWTException {
         loginActions.alertPopUpAppears();
-        DriverManager.quitDriver();
+
     }
 }

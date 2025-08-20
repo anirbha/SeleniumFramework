@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class UserChainPojo {
+public class HeaderCookiePojo {
 
-    private Integer id;
+    private int id;
+    private int postId;
     private String name;
-    private String username;
     private String email;
-
+    private String body;
 
 
 }

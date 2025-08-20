@@ -79,6 +79,7 @@ public class WishListAction {
 
     //This method will retrieve the wishlisted items
     public void retriveWishListedItems(){
+        WaitUtils.waitExplicitlyForWebElementVisible(driver,wishListPage.WishListedItems);
         wishlisteditems=TestUtils.returnList(driver,wishListPage.WishListedItems);
         for (int wishlisteditem=0; wishlisteditem<wishlisteditems.size();wishlisteditem++)
         {

@@ -3,6 +3,8 @@ package api.stepdefinition;
 import api.Pojo.PostChainPojo;
 import api.Pojo.UserChainPojo;
 import api.base.BaseApiTest;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,7 +14,10 @@ import ui.Utils.ExtentManager;
 import ui.Utils.Log;
 import ui.Utils.TestUtils;
 
-import java.util.Objects;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,15 +32,27 @@ public class ChainReqSteps {
     UserChainPojo createdUser;
     PostChainPojo createdPost;
     Integer id;
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode node;
+    String jsonpath;
+    String jsoncontent;
 
 
     @Given("I create a new user in users endpoint")
-    public void iCreateANewUserInUsersEndpoint() {
+    public void iCreateANewUserInUsersEndpoint() throws IOException {
         // Step 1: Create a user POJO
 
-        userChainPojo.setName(String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UserChainJsonPath"))).get("name")));
-        userChainPojo.setUsername(String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UserChainJsonPath"))).get("username")));
-        userChainPojo.setEmail(String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UserChainJsonPath"))).get("email")));
+        jsonpath = TestUtils.getProperty("UserChainJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node = mapper.readTree(jsoncontent);
+
+        String name=node.get("name").asText();
+        String username=node.get("username").asText();
+        String email=node.get("email").asText();
+
+        userChainPojo.setName(name);
+        userChainPojo.setUsername(username);
+        userChainPojo.setEmail(email);
 
         response= BaseApiTest.getRequest(BASE_URL,endpoint).body(userChainPojo).post();
         Log.info("Status code after creating user in users endpoint "+ response.getStatusCode());
@@ -49,11 +66,20 @@ public class ChainReqSteps {
     }
     //Post request to create id in user
     @When("I create a post for that user")
-    public void iCreateAPostForThatUser() {
+    public void iCreateAPostForThatUser() throws IOException {
         postChainPojo.setId(id);
-        postChainPojo.setTitle(String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("PostChainJsonPath"))).get("title")));
-        postChainPojo.setBody(String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("PostChainJsonPath"))).get("body")));
-        postChainPojo.setUserId((Integer)(TestUtils.readJsonData(TestUtils.getProperty("UserChainJsonPath"))).get("userId"));
+
+        jsonpath = TestUtils.getProperty("PostChainJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node = mapper.readTree(jsoncontent);
+
+        String title=node.get("title").asText();
+        String body=node.get("body").asText();
+        int userId=node.get("userId").asInt();
+
+        postChainPojo.setTitle(title);
+        postChainPojo.setBody(body);
+        postChainPojo.setUserId(userId);
 
         response= RestAssured.given().baseUri(BASE_URL).basePath(endpoint).body(postChainPojo).post();
         Log.info("Status code after creating user in post "+ response.getStatusCode());

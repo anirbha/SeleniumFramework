@@ -55,12 +55,12 @@ public class RegisterSteps {
     }
 
     @And("I enter my mobile number in the mobile number textbox")
-    public void iEnterMyMobileNumberInTheMobileNumberTextbox() throws IOException, ParseException {
+    public void iEnterMyMobileNumberInTheMobileNumberTextbox() throws IOException {
         registerActions.enterPhNumberForEdit();
     }
 
     @When("I click on the Confirm button")
-    public void iClickOnTheConfirmButton() throws IOException, ParseException {
+    public void iClickOnTheConfirmButton()  {
         registerActions.clickOnTheUpdateBtn();
     }
 }
