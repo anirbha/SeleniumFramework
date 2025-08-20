@@ -12,6 +12,8 @@ public class Hooks {
     public void setUp(Scenario scenario) {
 
         ExtentManager.createTest(scenario.getName());
+        DriverManager.getDriver();
+        ExtentManager.getTest().info("Driver initialized for scenario: " + scenario.getName());
     }
 
     @After

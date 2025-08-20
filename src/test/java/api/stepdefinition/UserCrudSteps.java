@@ -3,6 +3,9 @@ package api.stepdefinition;
 
 import api.Pojo.CrudPojo;
 import api.base.BaseApiTest;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -12,7 +15,10 @@ import ui.Utils.ExtentManager;
 import ui.Utils.Log;
 import ui.Utils.TestUtils;
 
-import java.util.Objects;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 import static junit.framework.Assert.assertEquals;
 
@@ -24,14 +30,23 @@ public class UserCrudSteps {
     private CrudPojo userpojo;
     private int id;
     private Response response;
+    private String jsonpath;
+    private String jsoncontent;
 
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode node;
 
 
     @Given("I create a new user")
-    public void iCreateANewUserWithNameAndEmail() {
+    public void iCreateANewUserWithNameAndEmail() throws IOException {
 
-        String name=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("CreateRecordJsonPath"))).get("name");
-        String email=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("CreateRecordJsonPath"))).get("email");
+        jsonpath = TestUtils.getProperty("CreateRecordJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node = mapper.readTree(jsoncontent);
+        // Access fields dynamically
+        String name = node.get("name").asText();
+        String email= node.get("email").asText();
+
         userpojo =new CrudPojo(name,email);
         endpoint=TestUtils.getProperty("UsersBasepath");
         response= BaseApiTest.getRequest(BASE_URL,endpoint)
@@ -76,8 +91,16 @@ public class UserCrudSteps {
 /*--------------------------------------------------------------------------------------------------------------------*/
 
     @Given("I retrieve the user by ID")
-    public void iRetrieveTheUserByID() {
-        String id=String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("GetRecordJsonPath"))).get("id"));
+    public void iRetrieveTheUserByID() throws IOException {
+
+        jsonpath = TestUtils.getProperty("GetRecordJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node = mapper.readTree(jsoncontent);
+
+        // Access fields dynamically
+        id = node.get("id").asInt();
+
+        // Assuming the ID is provided in the JSON file at GetRecordJsonPath
         endpoint=TestUtils.getProperty("UsersBasepath")+id;
 
         response=BaseApiTest.getRequest(BASE_URL,endpoint).get();
@@ -109,14 +132,19 @@ public class UserCrudSteps {
 /*----------------------------------------------------------------------------------------------------------------*/
 
     @Given("I update the user name and email")
-    public void iUpdateTheUserName() {
-        String name=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UpdateRecordJsonPath"))).get("name");
-        String email=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UpdateRecordJsonPath"))).get("email");
-        String id=String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("UpdateRecordJsonPath"))).get("id"));
+    public void iUpdateTheUserName() throws IOException {
+
+        jsonpath=TestUtils.getProperty("UpdateRecordJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node = mapper.readTree(jsoncontent);
+        // Access fields dynamically
+        String name = node.get("name").asText();
+        String email= node.get("email").asText();
+        int id= node.get("id").asInt();
 
         userpojo =new CrudPojo(name,email);
 
-        userpojo.setId(Integer.parseInt(id));
+        userpojo.setId(id);
 
         endpoint=TestUtils.getProperty("UsersBasepath")+id;
 
@@ -130,8 +158,11 @@ public class UserCrudSteps {
     /*-------------------------------------------------------------------------------------------------------------*/
 
     @Given("I delete the user")
-    public void iDeleteTheUser() {
-        String id=String.valueOf(Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("DeleteRecordJsonPath"))).get("id"));
+    public void iDeleteTheUser() throws IOException {
+        jsonpath=TestUtils.getProperty("DeleteRecordJsonPath");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        node= mapper.readTree(jsoncontent);
+        id= node.get("id").asInt();
 
         endpoint=TestUtils.getProperty("UsersBasepath")+id;
 

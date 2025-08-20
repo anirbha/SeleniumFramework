@@ -2,6 +2,8 @@ package api.stepdefinition;
 
 import api.Pojo.AuthPojo;
 import api.base.BaseApiTest;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,6 +13,9 @@ import ui.Utils.ExtentManager;
 import ui.Utils.Log;
 import ui.Utils.TestUtils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 
@@ -23,6 +28,11 @@ public class AuthenticationSteps {
     private Response response;
     private int id;
     private String endpoint;
+    private String jsonpath;
+    private String jsoncontent;
+    JsonNode node;
+
+    ObjectMapper mapper=new ObjectMapper();
 
     @Given("I set the Authorization header")
     public void iSetTheAuthorizationHeaderTo() {
@@ -30,9 +40,19 @@ public class AuthenticationSteps {
     }
 
     @When("I send a POST request")
-    public void iSendAPOSTRequestTo() {
-        String title=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("CreateRecordWithAuth"))).get("title");
-        String body=(String) Objects.requireNonNull(TestUtils.readJsonData(TestUtils.getProperty("CreateRecordWithAuth"))).get("body");
+    public void iSendAPOSTRequestTo() throws IOException {
+        jsonpath = TestUtils.getProperty("CreateRecordWithAuth");
+        jsoncontent = new String(Files.readAllBytes(Paths.get(jsonpath)));
+        try {
+            node = mapper.readTree(jsoncontent);
+        } catch (Exception e) {
+            Log.error("Error reading JSON content: " + e.getMessage());
+        }
+
+        String title = node.get("title").asText();
+        String body = node.get("body").asText();
+
+
         authpojo =new AuthPojo(title,body);
         endpoint =TestUtils.getProperty("BasepathPost");
 

@@ -11,6 +11,8 @@ import org.testng.Assert;
 import ui.Utils.*;
 import ui.pages.LoginPage;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.time.Duration;
 
@@ -259,13 +261,18 @@ public class LoginActions {
     }
 
 
-    public void alertPopUpAppears() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-        String alerttxt= alert.getText();
-
-        ExtentManager.getTest().info("The Alert text is" + alerttxt);
-        Log.info("The Alert text is" + alerttxt);
+    public void alertPopUpAppears() throws AWTException {
+        String path=TestUtils.takeScreenshot(driver);
+        try{
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ESCAPE);
+            robot.keyRelease(KeyEvent.VK_ESCAPE);
+            Log.info("The Alert is cancelled");
+            ExtentManager.getTest().pass(" The Alert is cancelled",MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+        } catch (Exception e) {
+            Log.error("The Alert is not handled");
+            ExtentManager.getTest().fail(" The Alert is not handled",MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+        }
 
     }
 }

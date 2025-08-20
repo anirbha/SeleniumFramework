@@ -1,6 +1,6 @@
 package api.stepdefinition;
 
-import api.Pojo.CommentPojo;
+import api.Pojo.HeaderCookiePojo;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -65,9 +65,9 @@ public class HeaderCookieSteps {
 
     @Then("the response should contain at least one comment")
     public void theResponseShouldContainAtLeastOneComment() {
-        List<CommentPojo> commentPojos = response.jsonPath().getList("", CommentPojo.class);
-        assertNotNull(commentPojos);
-        assertFalse(commentPojos.isEmpty());
+        List<HeaderCookiePojo> headerCookiePojos = response.jsonPath().getList("", HeaderCookiePojo.class);
+        assertNotNull(headerCookiePojos);
+        assertFalse(headerCookiePojos.isEmpty());
     }
 
     @Then("the response header {string} should be {string}")

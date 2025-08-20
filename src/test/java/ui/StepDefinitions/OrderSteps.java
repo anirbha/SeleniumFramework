@@ -64,7 +64,7 @@ public class OrderSteps {
     }
 
     @When("I verify the items and the prices it should match with the earlier")
-    public void iVerifyTheItemsAndThePricesItShouldMatchWithTheEarlier() throws InterruptedException {
+    public void iVerifyTheItemsAndThePricesItShouldMatchWithTheEarlier()  {
         orderActions.validateFinalPrice();
         orderActions.validateFinalItems();
     }
